@@ -14,7 +14,6 @@ namespace Week6Project1
     {
         ObservableCollection<toDoTask> allTasks = new ObservableCollection<toDoTask>();
         TaskManager dbModel = new TaskManager();
-        DatabaseManger dbManger = new DatabaseManger();
 
         public MainPage()
         {
@@ -25,7 +24,7 @@ namespace Week6Project1
         protected async override void OnAppearing()
         {
 
-            allTasks = await dbManger.CreateTabel();
+            allTasks = await App.dbManger.CreateTabel();
             allTasksTable.ItemsSource = allTasks;
             base.OnAppearing();
 
@@ -34,7 +33,7 @@ namespace Week6Project1
         public async void addNewTask(object sender, EventArgs e)
         {
             toDoTask newTask = await TaskManager.InputBox(this.Navigation, null);
-            dbManger.InsertNewTodo(newTask);
+            App.dbManger.InsertNewTodo(newTask);
             allTasks.Add(newTask);
             allTasksTable.ItemsSource = null;
             allTasksTable.ItemsSource = allTasks;
@@ -48,7 +47,7 @@ namespace Week6Project1
             // MenuItem item = (e as MenuItem);
              toDoTask t = (sender as MenuItem).CommandParameter as toDoTask;
 
-            dbManger.deleteToDo(t);
+            App.dbManger.deleteToDo(t);
 
             allTasksTable.ItemsSource = null;
             allTasksTable.ItemsSource = allTasks;
@@ -60,7 +59,7 @@ namespace Week6Project1
         {
             
             toDoTask toupdateTask = await TaskManager.InputBox(this.Navigation, allTasksTable.SelectedItem as toDoTask);
-            dbManger.updateToDo(toupdateTask);
+            App.dbManger.updateToDo(toupdateTask);
             allTasksTable.ItemsSource = null;
             allTasksTable.ItemsSource = allTasks;
         }

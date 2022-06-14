@@ -6,9 +6,11 @@ namespace Week6Project1
 {
     public partial class App : Application
     {
+        public static DatabaseManger dbManger;
         public App()
         {
             InitializeComponent();
+             dbManger = new DatabaseManger();
 
             MainPage = new MainPage();
         }
